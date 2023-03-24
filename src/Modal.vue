@@ -27,7 +27,7 @@ export default {
       console.log(a);
       if (isNaN(a) === true) {
         alert("숫자만 쓰시오");
-        this.month = 1;
+        this.month = 1  ;
       }
     },
   },

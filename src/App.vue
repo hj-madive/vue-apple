@@ -54,6 +54,7 @@ export default {
 <style>
 .start {
   opacity: 0;
+  transition: all 1s;
 }
 .end {
   opacity: 1;
