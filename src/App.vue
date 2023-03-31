@@ -10,7 +10,7 @@
     <Discount v-if="showDiscount == true" />
 
     <button @click="priceSort">가격순 정렬</button>
-    <button @click="priceBackSort">가격역순 정렬</button>
+    <button @click="priceBackSort">가격역 순 정렬</button>
     <button @click="nameSort">이름순 정렬</button>
     <button @click="sortBack">되돌리기</button>
 
