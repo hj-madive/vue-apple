@@ -31,6 +31,12 @@ export default {
       }
     },
   },
+  beforeUpdate() {
+    if(this.month == 2) {
+      alert('2 쓰지마시오');
+      this.month = 3
+    }
+  },
   props: {
     onerooms: Array,
     modalClick: Number,

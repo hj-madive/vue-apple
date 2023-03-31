@@ -1,12 +1,18 @@
 <template>
   <div>
-    <Modal :onerooms="onerooms" :modalClick="modalClick" :modalState="modalState" @closeModal="modalState = false" />
-
+    <transition name="fade">
+      <Modal :onerooms="onerooms" :modalClick="modalClick" :modalState="modalState" @closeModal="modalState = false" />
+    </transition>
     <div class="menu">
       <a v-for="aa in menu" :key="aa">{{ aa }}</a>
     </div>
 
-    <Discount />
+    <Discount v-if="showDiscount == true" />
+
+    <button @click="priceSort">가격순 정렬</button>
+    <button @click="priceBackSort">가격역순 정렬</button>
+    <button @click="nameSort">이름순 정렬</button>
+    <button @click="sortBack">되돌리기</button>
 
     <Card
       @openModal="
@@ -30,6 +36,8 @@ export default {
   name: "App",
   data() {
     return {
+      showDiscount: true,
+      oneroomsOriginal : [...data],
       modalClick: 0,
       onerooms: data,
       modalState: false,
@@ -42,6 +50,24 @@ export default {
     increase(i) {
       this.reportCount[i] += 1;
     },
+    sortBack() {
+      this.onerooms = [...this.oneroomsOriginal]
+    },
+    priceSort() {
+      this.onerooms.sort(function(a,b){
+        return a.price - b.price
+      })
+    },
+    nameSort() {
+      this.onerooms.sort(function(a,b) {
+        return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+      })
+    },
+    priceBackSort() {
+      this.onerooms.sort(function(a,b){
+        return b.price - a.price
+      })
+    },
   },
   components: {
     Discount: Discount,
@@ -52,11 +78,24 @@ export default {
 </script>
 
 <style>
-.start {
-  opacity: 0;
-  transition: all 1s;
+.fade-leave-from {
+  opacity: 1;
 }
-.end {
+.fade-leave-active {
+  transition: all .5s;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-from {
+  transform: translateY(-1000px);
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all .5s;
+}
+.fade-enter-to {
+  transform: translateY(0px);
   opacity: 1;
 }
 body {
